@@ -33,4 +33,4 @@ jobs:
       run: |
         wget https://github.com/optiopay/klar/releases/download/v2.4.0/klar-2.4.0-linux-amd64 -O klar
         chmod +x klar
-        CLAIR_ADDR=http://clair.3r1.co:6060 ./klar docker.io/3r1co/cd:$(git rev-parse --short HEAD)%
+        CLAIR_ADDR=http://clair.3r1.co:6060 ./klar docker.io/3r1co/cd:sha-$(git rev-parse --short HEAD)
