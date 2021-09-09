@@ -29,7 +29,8 @@ jobs:
         registry: docker.io
         repository: 3r1co/cd
         #tag_with_sha: true
-        tag_with_ref: true
+        #tag_with_ref: true
+        tags: latest
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
