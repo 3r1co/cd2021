@@ -29,8 +29,12 @@ jobs:
         registry: docker.io
         repository: 3r1co/cd
         tag_with_sha: true
-    - name: use klar
-      run: |
-        wget https://github.com/optiopay/klar/releases/download/v2.4.0/klar-2.4.0-linux-amd64 -O klar
-        chmod +x klar
-        CLAIR_ADDR=http://clair.3r1.co:6060 ./klar docker.io/3r1co/cd:sha-$(git rev-parse --short HEAD)
+    - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'docker.io/3r1co/cd:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
