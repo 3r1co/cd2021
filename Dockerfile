@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM python:3.5.1-alpine
 
 LABEL "maintainer" "eric.muellenbach@yncrea.fr"
 
