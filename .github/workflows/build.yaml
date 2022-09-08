@@ -28,6 +28,8 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn --batch-mode --update-snapshots package
+    - name : machine ls $GITHUB_WORKSPACE
+      run : "find $GITHUB_WORKSPACE"
     - name: build-push
       uses: docker/build-push-action@v1
       with:
