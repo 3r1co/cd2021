@@ -12,14 +12,4 @@ class ApplicationTests {
 	void contextLoads() {
 	}
 
-	@Test
-	void testAPlusB() {
-		assertEquals(3, Application.sum(1,2));
-	}
-
-	@Test
-	void testAPlusBFailing() {
-		assertEquals(3, Application.sum(1,2));
-	}
-
 }
