@@ -18,7 +18,7 @@ class ApplicationTests {
 	}
 
 	@Test
-	void testAPlusB() {
+	void testAPlusBFailing() {
 		assertEquals(4, Application.sum(1,2));
 	}
 
