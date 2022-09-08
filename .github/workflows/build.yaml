@@ -28,6 +28,8 @@ jobs:
     - uses: sburris/dependency-check-action@master
       with:
         Project-Name: TestApp
+      env:
+        JAVA_HOME: /opt/jdk
     - name: Archive dependency check reports
       uses: actions/upload-artifact@v1
       with:
