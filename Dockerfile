@@ -1,17 +1,4 @@
-FROM python:3.5.1-alpine
-
-LABEL "maintainer" "eric.muellenbach@yncrea.fr"
-
-VOLUME [ "/data" ]
-
-EXPOSE 3000
-
-ADD app.py .
-
-COPY app2.py .
-
-RUN whoami
-
-ENTRYPOINT [ "python" ]
-
-CMD "app.py"
+FROM openjdk:11-jdk-alpine
+MAINTAINER eric.muellenbach@yncrea.fr
+COPY target/spring-boot-1.0.0-SNAPSHOT.jar spring-boot-1.0.0-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/spring-boot-1.0.0-SNAPSHOT.jar"]
