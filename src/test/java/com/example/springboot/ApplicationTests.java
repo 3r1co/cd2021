@@ -19,7 +19,7 @@ class ApplicationTests {
 
 	@Test
 	void testAPlusBFailing() {
-		assertEquals(4, Application.sum(1,2));
+		assertEquals(3, Application.sum(1,2));
 	}
 
 }
