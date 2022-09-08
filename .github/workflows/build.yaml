@@ -20,21 +20,23 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn --batch-mode --update-snapshots package
+   # 2.1
     - name: SonarCloud Scan
       run: mvn -B verify sonar:sonar -Dsonar.projectKey=3r1co_cd2021 -Dsonar.organization=3r1co-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    - uses: sburris/dependency-check-action@master
-      with:
-        Project-Name: TestApp
-      env:
-        JAVA_HOME: /opt/jdk
-    - name: Archive dependency check reports
-      uses: actions/upload-artifact@v1
-      with:
-        name: reports
-        path: reports
+    # 2.2
+    #- uses: sburris/dependency-check-action@master
+    #  with:
+    #    Project-Name: TestApp
+    # env:
+    #    JAVA_HOME: /opt/jdk
+    #- name: Archive dependency check reports
+    #  uses: actions/upload-artifact@v1
+    #  with:
+    #    name: owasp-reports
+    #    path: reports
     - name: build-push
       uses: docker/build-push-action@v1
       with:
@@ -42,13 +44,17 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         registry: docker.io
         repository: 3r1co/cd
-        #tag_with_sha: true
-        #tag_with_ref: true
-        tags: latest
+        tag_with_sha: true
+        # tag_with_ref: true
+        # tags: latest
+    # 2.3
+    - name: Set outputs
+      id: vars
+      run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: docker.io/3r1co/cd:latest
+        image-ref: docker.io/3r1co/cd:sha-${{ steps.vars.outputs.sha_short }}
         format: 'table'
         exit-code: '0'
         ignore-unfixed: true
