@@ -10,4 +10,8 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+	public static int sum(int a, int b) {
+		return a + b ;
+	}
+
 }
